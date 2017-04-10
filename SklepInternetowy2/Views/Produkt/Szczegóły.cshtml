@@ -1,0 +1,71 @@
+﻿@model SklepInternetowy2.Models.Produkt
+
+@{
+    ViewBag.Title = "Szczegóły";
+}
+
+<h2>Szczegółowe infromacje</h2>
+
+<div>
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Category.Nazwa)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Category.Nazwa)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Producent.Nazwa)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Producent.Nazwa)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Nazwa)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Nazwa)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Cena_netto)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Cena_netto)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Procent_vat)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Procent_vat)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Opis)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Opis)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Ilość)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Ilość)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Powrót", "Index", "Home");
+</p>

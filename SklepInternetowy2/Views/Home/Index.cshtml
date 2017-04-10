@@ -1,0 +1,77 @@
+﻿@model IEnumerable<SklepInternetowy2.Models.Produkt>
+
+@{
+    ViewBag.Title = "Index";
+    var zalogowany = Session["zalogowany"] as SklepInternetowy2.Models.Klient;
+}
+
+<p>Lista Produktów</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Category.Nazwa)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Producent.Nazwa)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Nazwa)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Cena_netto)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Procent_vat)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Opis)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Ilość)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Category.Nazwa)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Producent.Nazwa)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Nazwa)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Cena_netto)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Procent_vat)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Opis)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Ilość)
+        </td>
+        <td>
+            @if (zalogowany != null && zalogowany.Login.Equals("admin"))
+            {
+                <a href="/Produkt/Szczegóły/@item.ProduktID">Szczegóły</a><br/>
+                <a href="/Produkt/Usuń/@item.ProduktID">Usuń</a>
+            }
+            else if(zalogowany == null)
+            {
+                <a href="/Produkt/Szczegóły/@item.ProduktID">Szczegóły</a>
+            }
+            else
+            {
+                <a href="/Koszyk/WybieranieIlości/@item.ProduktID">Dodaj do koszyka</a>
+                <a href="/Produkt/Szczegóły/@item.ProduktID">Szczegóły</a>
+            }
+        </td>
+    </tr>
+}
+
+</table>

@@ -1,0 +1,45 @@
+﻿@model SklepInternetowy2.Models.Klient
+
+@{
+    ViewBag.Title = "Zaloguj";
+}
+
+<h2>Logowanie do serwisu</h2>
+
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.Login, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Login, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Login, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2" for="Haslo">Haslo</label>
+            <div class="col-md-10">
+
+                <input class="form-control text-box single-line" id="Haslo" name="Haslo" type="password" value="" />
+                <span class="field-validation-valid text-danger" data-valmsg-for="Haslo" data-valmsg-replace="true"></span>
+            </div>
+        </div>
+       
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Zaloguj" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

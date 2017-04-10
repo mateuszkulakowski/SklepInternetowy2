@@ -1,0 +1,107 @@
+﻿
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0 charset=UTF-8">
+    <title>@ViewBag.Title - Ogłoszenia</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    <script src="~/Scripts/jquery-3.1.1.js"></script>
+    <script src="~/Scripts/bootstrap.min1.js"></script>
+
+
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+</head>
+<body>
+    @{ var zalogowany = Session["zalogowany"] as SklepInternetowy2.Models.Klient;
+        var koszyk = Session["koszyk"] as List<SklepInternetowy2.Models.Produkt>;
+        }
+    <nav class="navbar navbar-default navbar-fixed-top">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                @Html.ActionLink("Sklep Internetowy", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+            </div>
+
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+
+                @if (Session["zalogowany"] == null)
+                {
+                    <ul class="nav navbar-nav navbar-right col-lg-2">
+                        <li><a href="/Logowanie/Rejestracja"><span class="glyphicon glyphicon-user"></span> Zarejestruj</a></li>
+                        <li><a href="/Logowanie/Zaloguj"><span class="glyphicon glyphicon-log-in"></span> Zaloguj</a></li>
+                    </ul>
+                }
+                else
+                {
+                    <ul class="nav navbar-nav navbar-right col-lg-4">
+                        <li><a href="#" style="pointer-events:none;">Witaj,@zalogowany.Login</a></li>
+                        
+                        @if (!zalogowany.Login.Equals("admin"))//koszyk dla userów
+                        {
+                            <li class="dropdown">
+                                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                                    <span class="glyphicon glyphicon-shopping-cart"></span>
+                                        Koszyk (@if (koszyk == null){<span>0</span>} else{ @koszyk.Count})
+                                    
+                                    <span class="caret"></span>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    @{
+                                        if (koszyk != null)
+                                        {
+                                            foreach (SklepInternetowy2.Models.Produkt pr in koszyk)
+                                            {
+                                                <li><a href="/Koszyk/Szczegóły/@pr.ProduktID">@pr.Nazwa, Ilość:@pr.Ilość</a></li>
+                                                }
+                                            }
+                                        }
+                                </ul>
+                              </li>
+                         }
+                        <li><a href="/Logowanie/Wyloguj"><span class="glyphicon glyphicon-log-out"></span> Wyloguj</a></li>
+
+                    </ul>
+
+                }
+                @if (zalogowany!= null && zalogowany.Login.Equals("admin"))
+                {
+                    <ul class="nav navbar-nav navbar-left col-lg-2">
+                        <li><a href="/Produkt/Dodaj"><span class="glyphicon glyphicon-plus"></span> Dodaj Produkt</a></li>
+                    </ul>
+                }
+
+                
+            </div>
+        </div>
+    </nav>
+
+    <div class="container body-content col-lg-2" style="border-right:1px dashed lightgrey">
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+
+
+    </div>
+
+    <div class="container body-content col-lg-10">
+
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year - Serwis Ogłoszeń</p>
+        </footer>
+
+    </div>
+
+
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+
+
+</html>
